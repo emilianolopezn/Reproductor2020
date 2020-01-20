@@ -18,13 +18,21 @@ using Microsoft.Win32;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 
+using System.Windows.Threading;
+
 namespace Reproductor
 {
+
+    
+
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        DispatcherTimer timer;
+
         //Lector de archivos
         AudioFileReader reader;
         //Comunicacion con la tarjeta de audio
@@ -38,6 +46,20 @@ namespace Reproductor
             btnReproducir.IsEnabled = false;
             btnDetener.IsEnabled = false;
             btnPausa.IsEnabled = false;
+
+            timer = new DispatcherTimer();
+            timer.Interval =
+                TimeSpan.FromMilliseconds(500);
+            timer.Tick += Timer_Tick;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            lblTiempoActual.Text =
+                reader.CurrentTime.ToString().
+                Substring(0, 8);
+            sldTiempo.Value = reader.CurrentTime.TotalSeconds;
+
         }
 
         void ListarDispositivosSalida()
@@ -98,6 +120,14 @@ namespace Reproductor
                     lblTiempoTotal.Text =
                         reader.TotalTime.ToString().
                         Substring(0, 8);
+                    lblTiempoActual.Text =
+                        reader.CurrentTime.ToString().
+                        Substring(0, 8);
+
+                    sldTiempo.Maximum = reader.TotalTime.TotalSeconds;
+                    sldTiempo.Value = reader.CurrentTime.TotalSeconds;
+
+                    timer.Start();
                 }
             }
 
@@ -106,8 +136,10 @@ namespace Reproductor
 
         private void Output_PlaybackStopped(object sender, StoppedEventArgs e)
         {
+            timer.Stop();
             reader.Dispose();
             output.Dispose();
+            
         }
 
         private void btnDetener_Click(object sender, RoutedEventArgs e)
