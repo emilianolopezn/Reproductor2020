@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Reproductor"
         mc:Ignorable="d"
-        Title="Reproductor" Height="226" Width="424.667">
+        Title="Reproductor" Height="226" Width="475.046">
     <Grid>
         <TextBox x:Name="txtRutaArchivo" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="317" IsEnabled="False"/>
         <Button x:Name="btnExaminar" Content="Examinar" HorizontalAlignment="Left" Margin="332,13,0,0" VerticalAlignment="Top" Width="75" Click="btnExaminar_Click"/>
@@ -19,6 +19,8 @@
                 Thumb.DragCompleted="sldTiempo_DragCompleted" />
         <TextBlock HorizontalAlignment="Left" Margin="10,134,0,0" TextWrapping="Wrap" Text="Elige dispositivo de salida:" VerticalAlignment="Top"/>
         <ComboBox x:Name="cbDispositivoSalida" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" Width="397"/>
+        <Slider x:Name="sldVolumen" HorizontalAlignment="Left" Margin="425,72,0,0" VerticalAlignment="Top" Orientation="Vertical" Height="105" Maximum="1" SmallChange="0.01" LargeChange="0.1" Value="1" ValueChanged="sldVolumen_ValueChanged"/>
+        <TextBlock HorizontalAlignment="Left" Margin="408,51,0,0" TextWrapping="Wrap" Text="Volumen:" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
